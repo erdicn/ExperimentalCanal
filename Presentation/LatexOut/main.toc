@@ -1,5 +1,0 @@
-\babel@toc {english}{}\relax 
-\beamer@sectionintoc {1}{Experimental setup}{3}{0}{1}
-\beamer@sectionintoc {2}{Unperturbed flow}{5}{0}{2}
-\beamer@sectionintoc {3}{Kelvin-Helmholtz instability}{6}{0}{3}
-\beamer@sectionintoc {4}{Boundary layer}{7}{0}{4}
