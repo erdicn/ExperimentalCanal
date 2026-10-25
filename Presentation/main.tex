@@ -1,0 +1,626 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames, compress]{beamer}
+\usetheme{Antibes}
+\usecolortheme{beaver} 
+% \useoutertheme{default}
+% \setbeamertemplate{headline}
+% \useoutertheme[subsection=false]{miniframes}
+\setbeamertemplate{headline}{
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1fill}{\hskip0pt plus1fill}
+  \end{beamercolorbox}%
+}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amsthm, amscd, amssymb}
+\usepackage{tikz, pgf} 
+\usetikzlibrary{calc}
+\usepackage[center]{caption}
+\usepackage[vlined]{algorithm2e}
+\usepackage[french, english]{babel}
+\usepackage{pgf}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{color, xcolor,colortbl}
+\usepackage{graphicx} % Allows including images
+\graphicspath{{Figures/}} %Setting the graphicspath
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{cancel}
+\usepackage{animate}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{csquotes}
+\usepackage{appendixnumberbeamer}
+% \usepackage[normalem]{ulem} % \sout{Hello World} to bar
+
+% \usepackage{media9}
+% \usepackage{pdfpc}
+\usepackage{multimedia}
+%\usepackage{tikzfigure}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\setbeamercovered{transparent}
+\usepackage{overpic}
+
+% \usepackage[%backend=biber,
+%     % style = ieee,
+%     % sorting=none
+%     backend=biber,
+%     style=authoryear,  % Changes citation style to Author-Year
+%     sorting=none,       % Sorts bibliography by Name, Year, Title
+%     maxcitenames=2,    % Triggers "et al." if there are more than 2 authors
+%     mincitenames=1,    % Keeps 1 author followed by "et al."
+%     maxbibnames=99
+% ]{biblatex} %,bibstyle=ieeehttps://www.overleaf.com/project/624dc5f129c1767e8bb8de67
+
+\usepackage[
+    backend=biber,
+    style=authoryear,  
+    sorting=none,       
+    maxcitenames=2,    
+    mincitenames=1,    
+    maxbibnames=99,
+    uniquelist=false, % Forces strict adherence to maxcitenames
+    uniquename=false  % Prevents unwanted initials in citations
+]{biblatex}
+\DeclareNameAlias{sortname}{given-family} % Otherwise it cited differently
+\DeclareNameAlias{author}{given-family}   % Otherwise it cited differently
+\addbibresource{biblio.bib}
+\renewbibmacro*{date}{%
+    \iffieldundef{year}
+    {\bibstring{nodate}}
+    {\printdate}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%          MY SHORTCUTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\bigO}{\mathcal{O}}
+
+% \usepackage{ulem}
+
+\newcolumntype{a}{ >{\columncolor{blue}} c }
+
+\setbeamertemplate{navigation symbols}{} % Remove the navigation symbols
+
+% Source - https://tex.stackexchange.com/a/168644
+% Posted by Dror
+% Retrieved 2026-06-23, License - CC BY-SA 3.0
+% \setbeamertemplate{footline}[text line]{%
+% \vspace*{8pt}\raggedleft\insertshortauthor
+% \hfill
+% \vspace*{8pt}\insertshorttitle
+% \hfill
+% \vspace*{8pt}\raggedright\insertframenumber/\inserttotalframenumber
+% }
+
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing,patterns}
+
+% Custom Palette
+\definecolor{waterblue}{RGB}{185, 218, 242}
+\definecolor{waterdeep}{RGB}{41, 128, 185}
+\definecolor{airgray}{RGB}{248, 249, 250}
+\definecolor{amrline}{RGB}{180, 195, 205}
+\definecolor{symred}{RGB}{192, 57, 43}
+\definecolor{veccolor}{RGB}{211, 84, 0}
+\definecolor{darkgray}{RGB}{50, 50, 50}
+
+
+
+%%%%%% Depending on the footer preferede either with or without bottom
+% \setbeamercolor{author in head/foot}{bg=black!0, fg=black!0}
+% \setbeamercolor{title in head/foot}{bg=black!0, fg=darkred!0}
+% \setbeamercolor{date in head/foot}{bg=black!0, fg=black}
+
+\setbeamercolor{author in head/foot}{bg=black!5, fg=black!80}
+\setbeamercolor{title in head/foot}{bg=black!10, fg=darkred!80}
+\setbeamercolor{date in head/foot}{bg=black!5, fg=black}
+\newcommand{\mypagenumbers}{\insertframenumber{} / \inserttotalframenumber}
+
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+    % Left side: Author
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+      \hspace*{2ex}\usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    % Middle: Title
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    % Right side: Uses our new variable!
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \mypagenumbers\hspace*{2ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+% \setbeamertemplate{footline}{
+%   \leavevmode%
+%   \hbox{%
+%     % Left side: Author
+%     \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+%       \hspace*{2ex}\usebeamerfont{author in head/foot}\insertshortauthor
+%     \end{beamercolorbox}%
+%     % Middle: Title
+%     \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+%       \usebeamerfont{title in head/foot}\insertshorttitle
+%     \end{beamercolorbox}%
+%     % Right side: Page numbering
+%     \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+%     %   \color{black}
+%         \insertframenumber{} / 
+%         % \ref{lastmainframe}
+%         \inserttotalframenumber
+%         \hspace*{2ex}
+%     \end{beamercolorbox}%
+%   }%
+%   \vskip0pt%
+% }
+
+
+% \setbeamertemplate{navigation symbols}{}
+% \addtobeamertemplate{navigation symbols}{}{%
+%     \usebeamerfont{footline}%
+%     % \usebeamercolor[fg]{footline}%
+%     \color{black}
+%     % Erdi ÇAN
+%     \hspace{1em}%
+%     \insertframenumber/\inserttotalframenumber
+% }
+
+\newcommand{\backupbegin}{
+    \newcounter{framenumberappendix}
+    \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+    \addtocounter{framenumberappendix}{-\value{framenumber}}
+    \addtocounter{framenumber}{\value{framenumberappendix}} 
+}        
+\newcommand{\blue}[1]{\textcolor{blue!75}{#1}}
+\newcommand{\green}[1]{\textcolor{teal!90}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\onlyred}[2]{\only<#1>{\red{#2}}}
+\newcommand{\onlyblack}[2]{\only<#1>{#2}}
+\newcommand{\rose}[1]{\textcolor{red!50}{#1}}
+
+%----------------------------------------------------------------------------------------
+%      FOR EMBEDDING VIDEOS
+%----------------------------------------------------------------------------------------
+%\input{embed_video.tex}
+% Put this to emdeb a video:
+% \embedvideo*{\includegraphics[width=0.45\textwidth]{image3AluFlottant.png}}{VideoDes3AluFlottant.mp4}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+% The title
+% \title[A pathway to understanding droplet collision in 1D jet]{A pathway to understanding droplet collision in 1D jet: \newline Is it really ballistic?}
+%\title[Ballistic aggregation]{A pathway to understanding droplet collision in 1D jet: \newline Is it really ballistic?}
+\title{PIV in a hydraulic canal}
+% \subtitle{Subtitle}
+
+\author[Erdi ÇAN]{Erdi ÇAN}
+\date{\today} % Date, can be changed to a custom date
+
+\institute{Sorbonne Université \& Institut Polytechnique de Paris}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+\newcommand{\mycite}[1]{[\textcolor{blue!50}{#1}]}
+
+\begin{document}
+% \begin{frame}{Ameliorations possibles sur le template}
+%     \begin{alertblock}{Ameliorations possibles}
+%         \begin{itemize}
+%             \item Peut etre faire un bulletpoints des sections en haut a droite pour voir mieux.
+%             \item En bas metre un banner en light red color avec nos noms et faire la couler de numero de page plus lissible car si le video projecteur nest pas bien ca se vois pas. 
+%             \item 
+%         \end{itemize}
+%     \end{alertblock}
+% \end{frame}
+
+\usetikzlibrary{patterns,patterns.meta}{
+    \setbeamertemplate{headline}{}
+    \begin{frame}[plain]
+        \titlepage
+        \centering
+        \includegraphics[height=0.075\textwidth]{Figures/Logos/SORBONNE_FAC_SCIENCES_DEF_CMJN.png}
+        \includegraphics[height=0.075\textwidth, trim={0 0 7cm 0},clip]{Figures/Logos/Logotype-6-Ecoles-Horizontal.png}
+
+        % \includegraphics[height=0.075\textwidth]{Logos/dalembert_logo.jpg}
+    \end{frame}
+}
+
+
+
+% \section{Introduction}
+
+% \begin{frame}{Motivations for droplet collision}
+%     \begin{columns}[T]
+%         \begin{column}{0.45\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[height=0.6\textheight, keepaspectratio]{fluid_motion_liquid_sheeet.png}
+%                 \caption{Breakup of liquid sheet. \parencite{album_of_fluid_motion}}
+%             \end{figure}
+%         \end{column}
+%         \begin{column}{0.55\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[height=0.6\textheight, keepaspectratio]{example-image}
+%                 \caption{Capillary instability of liquid jet. \parencite{album_of_fluid_motion}}
+%             \end{figure}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+
+%\begin{frame}{Overview}
+%    \tableofcontents
+%\end{frame}
+
+\begin{frame}{Overview}
+    \begin{columns}[c]
+        \begin{column}{0.3\textwidth}
+            \tableofcontents
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width = \textwidth]{example-image}
+                % \caption{Simulation of a 3D atomizing jet \parencite{atomisingjet-2025}}
+                \label{fig:intro_fig}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Experimental setup}
+\begin{frame}{Experimental setup}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \includegraphics[width = \textwidth]{example-image}
+                \caption{Schematic of the experimental setup}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item Camera: 
+                \item Laser:
+                \item Lenses:
+                \item Power supply for laser:
+                \item Dimensions of the canal:
+            \end{itemize}
+            \begin{figure}
+                \includegraphics[height=0.35\textheight]{example-image-a}
+                \caption{The experimental setup}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Experimental setup}
+    HOw do we do our setup and caractheristic 
+\end{frame}
+
+\section{Unperturbed flow}
+\begin{frame}{Default flow}
+    
+\end{frame}
+
+\section{Kelvin-Helmholtz instability}
+\begin{frame}{Kelvin-Helmholtz instability}
+    
+\end{frame}
+
+
+\section{Boundary layer}
+\begin{frame}{Boundary layer}
+    Trying velour, plexiglass, and maybe other bottoms 
+\end{frame}
+
+% \section{Instability theory}
+% %\begin{frame}{Rayleigh-Plateau instability theory}
+    
+% %\end{frame}
+
+% \begin{frame}{Rayleigh--Plateau Instability: Theoretical Framework}
+%   \vspace{-0.7em}
+%   \begin{columns}[T,onlytextwidth]
+%     % Left Column: Physics & Dispersion Relation
+%     \begin{column}{0.48\textwidth}
+%       \begin{block}{Linearized Jet Perturbation}
+%         A cylinder of radius $R_0$ undergoes an axisymmetric perturbation:
+%         \[
+%           r(z, t) = R_0 + \varepsilon_0 e^{\omega t} \cos(k z), \quad (\varepsilon_0 \ll R_0)
+%         \]
+%         where $k = 2\pi / \lambda$ is the axial wavenumber and $\omega$ is the temporal growth rate.
+%       \end{block}
+%     \end{column}
+%     \begin{column}{0.48\textwidth}
+%       \begin{block}{Rayleigh Dispersion Relation (Inviscid)}
+%         Balancing capillary pressure and potential flow inertia yields:
+%         \[
+%           \omega^2 = \frac{\sigma}{\rho R_0^3} \, (k R_0) \, (1 - k^2 R_0^2) \, \frac{I_1(k R_0)}{I_0(k R_0)}
+%         \]
+%         where $I_n$ are modified Bessel functions of the first kind.
+%       \end{block}
+%     \end{column}
+%   \end{columns}
+%   \begin{alertblock}{Hypothesis}
+%        To solve for Euler equations, we need the flow to be \textbf{inviscid} and \textbf{incompressible} surrounded by \textbf{passive surrounding gas} and a \textbf{negligible gravity}. 
+%       \end{alertblock}
+% \end{frame}
+
+% \begin{frame}{Rayleigh--Plateau Instability: Theoretical Framework}
+%   \vspace{-0.5em}
+%   \begin{columns}[T,onlytextwidth]
+%     % Left Column: Cutoff, Dominant Mode & Verification
+%     \begin{column}{0.48\textwidth}
+%       \begin{block}{Stability Criterion \& Most Unstable Mode}
+%         \begin{itemize}\setlength{\itemsep}{2pt}
+%           \item \textbf{Unstable condition:} $\omega > 0 \iff k R_0 < 1 \implies \lambda > 2\pi R_0$
+%           \item \textbf{Max.\ growth rate:} occurs at $k_{\max} R_0 \approx 0.697$
+%           \item \textbf{Optimal wavelength:} 
+%           \[
+%             \lambda_{\max} \approx \frac{2\pi}{0.697} R_0 \approx 9.016\, R_0
+%           \]
+%           \item \textbf{Peak growth rate (inviscid):} $\omega_{\max} \approx 0.3433 \, \tau_c^{-1}$
+%         \end{itemize}
+%       \end{block}
+%     \end{column}
+%     % Right Column: Cutoff, Dominant Mode & Verification
+%     \begin{column}{0.48\textwidth}
+%       \begin{alertblock}{Simulation Scale Benchmark}
+%         In Basilisk dimensionless units ($\tau_c = \sqrt{\rho R_0^3 / \sigma} = 1$):
+%         \[
+%           \omega_{\text{theory}} \approx 0.3433
+%         \]
+%         \[
+%         \ln\left(\frac{r_{\max}(t) - R_0}{\varepsilon_0}\right) = \omega t
+%         \]
+%         Extract $r_{\max}(t) - r_{\min}(t)$ in the early linear regime to fit $\omega$.
+%       \end{alertblock}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+
+% \section{Numerical setup}
+% \begin{frame}{Basilisk setup}
+%     \begin{columns}
+%         \begin{column}{0.35\linewidth}
+%             \begin{align*}
+%                 &U_c = \sqrt{\frac{\sigma}{\rho_l R}} = 1.5\,\text{m/s}\\
+%                 &t_c = \frac{R}{U_c} = \sqrt{\frac{\rho_l R^3}{\sigma}} = 21.3\,\mu\text{s}\\
+%                 &Oh = \frac{\mu}{\sqrt{\rho \sigma R}} = 0.0211\\
+%                 &Re = \frac{\rho U_c R}{\mu} = \frac{1}{Oh} = 47.5\\
+%                 &We = \frac{\rho U_c^2 R}{\sigma} = 1, \quad Ca = Oh = \frac{\mu U_c}{\sigma} 
+%             \end{align*}
+%         \end{column}
+%         \begin{column}{0.65\linewidth}
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[width=\textwidth]{Figures/Ohnesorge-number-versus-Reynolds-number-Oh-Re-graph-for-optimal-working-conditions.png}
+%                 \caption{Different regimes of a jet \parencite{Heinzen2004}}
+%                 \label{fig:Oh_vs_Re}
+%             \end{figure}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+% \begin{frame}{Basilisk setup}
+%     % Boundary conditions and simulation setup
+
+%     % Ca, Bo, Re etc ... droplet droplet and droplet air
+%     % Also put the methods and headers used then explain them in the next slayt quickly
+%     \begin{columns}
+%         \begin{column}{0.58\textwidth}
+%             %\input{Figures/simu.tex}
+%             \vspace{-1cm}
+%             \begin{figure}[htbp]
+%               \centering
+%               \resizebox{\columnwidth}{!}{%
+%                 \input{Figures/simu.tex}%
+%               }
+%             \end{figure}
+%         \end{column}
+%         \begin{column}{0.4\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \movie[autostart, loop,width=\linewidth, height=\linewidth, poster]{\includegraphics[width = 0.9\textwidth]{Figures/level_9_error_1e-4.png}}{/home/erdi/Uni/M2/AdvancedNumericalMethods/ProjectRP/NewBal/Rayleigh-Ballisitcs/rayleigh_plateau_num/Figures/movie.mp4}
+%             \end{figure}
+%         \end{column}
+%     \end{columns}
+    
+% \end{frame}
+
+% \section{Axisymetric simulations}
+
+% \begin{frame}{Axisymmetric convergence: methodology}
+%   \vspace{-0.7em}
+%   \begin{columns}[T,onlytextwidth]
+%     % Left column: what we measure
+%     \begin{column}{0.48\textwidth}
+%       \begin{block}{Convergence parameter: growth rate $\omega$}
+%         \begin{itemize}\setlength{\itemsep}{2pt}
+%           \item At each time step, extract the interface extrema $r_{\max}(t)$ and $r_{\min}(t)$
+%           \item Perturbation amplitude :
+%           {\small
+%             \[
+%               A(t) = \frac{r_{\max}(t) - r_{\min}(t)}{2} = \varepsilon_0 \cosh(\omega t)
+%             \]
+%             }
+%             \item Fit $\omega$ in the linear regime ($A \ll R_0$) and compare with theory:
+%             {\small
+%             \[
+%               \underbrace{\omega_{\text{Rayleigh}} = 0.3433\,\tau_c^{-1}}_{\text{inviscid, analytical}}
+%             \]
+%             }
+%         \end{itemize}
+%       \end{block}
+%     \end{column}
+%     % Right column: why the grid study also covers time
+%     \begin{column}{0.48\textwidth}
+%       \begin{alertblock}{Time step slaved to grid size}
+%         Basilisk adapts $\Delta t$ at every step to satisfy the stability constraints:
+%         \[
+%           \Delta t \le \min\left( \text{CFL}\,\frac{\Delta}{|\mathbf{u}|_{\max}},\;
+%           \sqrt{\frac{\bar{\rho}\,\Delta^3}{\pi\sigma}} \right)
+%         \]
+%         Viscosity is treated implicitly (Crank--Nicolson): no viscous constraint.
+%         \begin{itemize}\setlength{\itemsep}{2pt}
+%           \item Refining $\Delta$ automatically refines $\Delta t$ ($\propto \Delta^{3/2}$, capillary-limited)
+%           \item The grid study is a \textbf{coupled space--time convergence} study
+%         \end{itemize}
+%       \end{alertblock}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+% \begin{frame}{Axisymetric convergence: results}
+%   \begin{columns}
+%     \begin{column}{0.5\textwidth}
+%       \begin{figure}
+%         \centering
+%         \includegraphics[width = \linewidth]{/home/erdi/Uni/M2/AdvancedNumericalMethods/ProjectRP/NewBal/Rayleigh-Ballisitcs/Test/b_sigma_vs_tol.pdf}
+%       \end{figure}
+%     \end{column}
+%     \begin{column}{0.5\textwidth}
+%       \begin{figure}
+%         \centering
+%         \includegraphics[width = \linewidth]{/home/erdi/Uni/M2/AdvancedNumericalMethods/ProjectRP/NewBal/Rayleigh-Ballisitcs/ConvergenceAnalysis/matrix_low_def.png}
+%       \end{figure}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+% \begin{frame}{Axisymetric convergence: results}
+%   \begin{columns}
+%     \begin{column}{0.47\linewidth}
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[width = \linewidth]{/home/erdi/Uni/M2/AdvancedNumericalMethods/ProjectRP/NewBal/Rayleigh-Ballisitcs/Test/d_sigma_vs_cells.pdf}  
+%             \end{figure}
+%         \end{column}
+%         \begin{column}{0.53\linewidth}
+            
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[width = \linewidth]{/home/erdi/Uni/M2/AdvancedNumericalMethods/ProjectRP/NewBal/Rayleigh-Ballisitcs/Test/c_cells.pdf}  
+%             \end{figure}
+%         \end{column}
+%   \end{columns}
+
+% \end{frame}
+
+
+
+% %\subsection{Axisymetric results}
+% %\begin{frame}{Axisymetric results}
+% %    \begin{columns}
+% %    \end{columns}
+% %\end{frame}
+
+% \section{Computational scaling}
+% \begin{frame}{Scaling}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[width = \textwidth]{/home/erdi/Uni/M2/AdvancedNumericalMethods/ProjectRP/NewBal/Rayleigh-Ballisitcs/ScalingAnalysis/basilisk_scaling_results.pdf}
+%   \end{figure}
+%     \begin{table}[htbp]
+% \centering
+% % \caption{Average grid cell counts and strong scaling performance for Basilisk simulations.}
+% \label{tab:basilisk_scaling_cells}
+% \begin{tabular}{cccccccc}
+% \toprule
+% Level & Tol ($\varepsilon$) & 2 & 4 & 8 & 16 & 32 & 64  (Cores)\\ % Cores ($p$) & $\bar{N}_{\text{cells}}$ & Cells / Core & Wall Time (s) & Speedup ($S_p$) & Efficiency ($\eta$) \\
+% \midrule
+%     8 &               0.001 &                  &1,450 &
+%           726 &
+%           361 &
+%           181 &
+%            90 (Cells/cores)\\
+% \midrule
+%     9 &              0.0001 &                          11,270 &   
+% 5,639 &   
+% 2,821 &   
+% 1,417 &   
+% 712 &   
+% 353  (Cells/cores) \\
+
+% \bottomrule
+% \end{tabular}
+% \end{table}
+% \end{frame}
+
+% %\section{3D simulations}
+% %\subsection{Convergence}
+% %\begin{frame}{3D convergence}
+    
+% %\end{frame}
+% %\subsection{Results}
+% %\begin{frame}{3D results}
+    
+% %\end{frame}
+
+
+
+
+% \section{Conclusion}
+% \begin{frame}{Conclusion and future objectives}
+%     \begin{columns}
+%         \begin{column}{0.5\textwidth}
+%             \begin{block}{}
+%               \begin{itemize}
+%                 \item Level 9 with $U_{tol}=10^{-4}$ or $10^{-5}$ 
+%                 \item Level 15 needed for 15mm %domain with the same jet radius
+%                 \item Over 3000 cells/core 
+%                 \item Convergence of $2.416\%$ with the inviscid theory.
+%               \end{itemize}
+%             \end{block}
+%         \end{column}
+%         \begin{column}{0.5\textwidth}
+%             \begin{figure}
+%               \centering
+%               \includegraphics[width = \textwidth]{jet_balistics.png}
+%               \caption{\parencite{jets_and_sprays}}
+%             \end{figure}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+
+\begin{frame}[allowframebreaks,noframenumbering]{References}
+    %\thispagestyle{empty}
+    \nocite{*}
+    %\addcontentsline{toc}{section}{Bibliographie}
+    \printbibliography[title = References]
+\end{frame}
+
+\appendix
+% \newcounter{finalframe}
+% \setcounter{finalframe}{\value{framenumber}}
+% \setcounter{framenumber}{0} 
+
+% Change the numbering format to A.1 / A.X
+\renewcommand{\mypagenumbers}{A.\insertframenumber{} / A.\inserttotalframenumber}
+
+\input{appendix.tex}
+
+
+\end{document}
+
+
